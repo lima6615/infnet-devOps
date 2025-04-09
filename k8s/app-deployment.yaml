@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infnet-guia-minikube
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: infnet-guia-minikube
+  template:
+    metadata:
+      labels:
+        app: infnet-guia-minikube
+    spec:
+      containers:
+        - name: infnet-guia-minikube
+          image: lima6615/infnet-guia_app:latest
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
